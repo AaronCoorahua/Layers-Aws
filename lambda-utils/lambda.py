@@ -30,24 +30,23 @@ def lambda_handler(event, context):
         schema_validation = "Valid JSON"
     except ValidationError as e:
         schema_validation = f"Invalid JSON: {e.message}"
-    print("json ok")
+        
     # Hacer una solicitud HTTP
     response = requests.get('https://api.github.com')
-    print("request ok")
+    
     # Manejar fechas y zonas horarias
     date_str = "2023-06-14T12:00:00Z"
     date = parser.parse(date_str)
     local_tz = pytz.timezone("America/New_York")
     local_date = date.astimezone(local_tz)
-    print("fechas ok")
+
     # Generar un UUID
     unique_id = str(uuid.uuid4())
-    print("UUID ok")
+
     # Manejar contraseñas
     password = "mysecretpassword"
     hashed_password = pbkdf2_sha256.hash(password)
     print("password ok")
-
     
     # Manejar tokens JWT
     token = jwt.encode({"some": "payload"}, "secret", algorithm="HS256")
